@@ -1,0 +1,8 @@
+.env.mongo
+auth.json
+__pycache__
+report
+datas
+.ipynb_checkpoints
+report_plc
+model
