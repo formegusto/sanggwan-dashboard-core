@@ -33,7 +33,7 @@ if __name__ == "__main__":
         exit(0)
 
     remote_conn = get_remote()
-    sql = f'SELECT * FROM {dev} WHERE farmid = "0004" AND rcvtime >= "{start_rcvtime}" AND rcvtime < "{end_rcvtime}" ORDER BY rcvtime ASC;'
+    sql = f'SELECT * FROM {dev} WHERE farmid = "0003" AND rcvtime >= "{start_rcvtime}" AND rcvtime < "{end_rcvtime}" ORDER BY rcvtime ASC;'
     print(sql)
     with remote_conn.cursor() as cursor:
         cursor.execute(sql)
