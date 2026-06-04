@@ -1,6 +1,6 @@
 ### Sanggwan Init Setting
 
-- python ./src/init_dev_info.py
+- python ./src/init_info.py
 - python ./src/remote_to_local.py --start "2026-05-22" --end "2026-06-03" --dev "Mpm310"
 
   ```

@@ -63,6 +63,28 @@ dev_infos = [
 if __name__ == "__main__":
     local = get_local()
 
+    farm_col = local["Farm"]
+    now = dt.datetime.now() - dt.timedelta(hours=9)
+    farm_info = {
+        "farmid": "0005",
+        "name": "상관 식물공장",
+        "location": "전북특별자치도 완주군 상관면",
+        "createdAt": now,
+        "updatedAt": now
+    }
+    ex = farm_col.find_one({
+        "farmid": farm_info["farmid"]
+    })
+    if ex is None:
+        farm_col.insert_one(farm_info)
+    else:
+        farm_col.update_one({
+            "_id": ex["_id"]
+        }, {
+            "$set": farm_info
+        })
+    
+
     dev_col = local["Device"]
     for dev_info in dev_infos:
         ex = dev_col.find_one({
