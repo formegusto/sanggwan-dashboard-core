@@ -237,7 +237,7 @@ if __name__ == "__main__":
     plt.plot(dates, evals, linewidth=3, label="kWh/kg", color="blue")
     plt.plot(dates, evals, linewidth=3, label="kwh_total/kg", color="skyblue")
     plt.hlines(avg_kwh_kg_n_day, linewidth=3, xmin=dates[0], xmax=dates[-1], label="평균", color="orange")
-    plt.hlines(avg_kwh_total_kg_n_day, linewidth=3, xmin=dates[0], xmax=dates[-1], label="토탈 센서 평균", color="yellow")
+    plt.hlines(avg_kwh_total_kg_n_day, linewidth=3, xmin=dates[0], xmax=dates[-1], label="토탈 센서 평균", color="coral")
     plt.hlines(goal_mean, linewidth=3, xmin=dates[0], xmax=dates[-1], label="목표", color="red")
     plt.xticks(fontsize=16, rotation=45, ha="right")
     plt.yticks(fontsize=16)
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     plt.close()
     
     evals = df
-    time, stat, hourly, img_path = report_get(start, end)
+    time, stat, hourly, total_hourly, img_path = report_get(start, end)
     if system == 'Windows':
         sys_root_path = "C:/Users/keti-eco-server/Desktop/KETI-CASTER/ktc-download/files"
     else: # mac and linux
