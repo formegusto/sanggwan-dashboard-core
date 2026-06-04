@@ -163,6 +163,7 @@ if __name__ == "__main__":
             ])])
     
     evals = []
+    evals_total = []
     for target_date in dates:
         date_str = target_date.strftime("%Y-%m-%d")
         kwh = round(df[df["date"] == date_str]["kwh"].values.sum(), 2)
@@ -180,6 +181,7 @@ if __name__ == "__main__":
         kwh_kg = round(kwh / kg_day, 2)
         kwh_total_kg = round(kwh_total / kg_day, 2)
         evals.append(kwh_kg)
+        evals_total.append(kwh_total_kg)
         df = pd.concat([df, pd.DataFrame([
                 {
                     "devid": "kwh/kg",
@@ -192,6 +194,7 @@ if __name__ == "__main__":
             ])])
         
     total_kwh = round(df[df["devid"] == "total"]["kwh"].values.sum(), 2)
+    total_kwh_total = round(df[df["devid"] == "total"]["kwh_total"].values.sum(), 2)
     df = pd.concat([df, pd.DataFrame([
             {
                 "devid": "total",
@@ -199,6 +202,7 @@ if __name__ == "__main__":
                 "model": "-",
                 "devname": "-",
                 "kwh": total_kwh,
+                "kwh_total": total_kwh_total
             }
         ])])
     days = len(dates)
@@ -210,9 +214,11 @@ if __name__ == "__main__":
                 "model": f"kg/{days}day",
                 "devname": "-",
                 "kwh": kg_n_day,
+                "kwh_total": kg_n_day
             }
         ])])
     avg_kwh_kg_n_day = round(total_kwh / kg_n_day, 2)
+    avg_kwh_total_kg_n_day = round(total_kwh_total / kg_n_day, 2)
     df = pd.concat([df, pd.DataFrame([
             {
                 "devid": "kwh/kg",
@@ -220,6 +226,7 @@ if __name__ == "__main__":
                 "model": f"kwh/kg/{days}day",
                 "devname": "-",
                 "kwh": avg_kwh_kg_n_day,
+                "kwh_total": avg_kwh_total_kg_n_day
             }
         ])])
 
@@ -228,7 +235,9 @@ if __name__ == "__main__":
     goal_mean = 14
     fig = plt.figure(figsize=(16, 6))
     plt.plot(dates, evals, linewidth=3, label="kWh/kg", color="blue")
+    plt.plot(dates, evals, linewidth=3, label="kwh_total/kg", color="skyblue")
     plt.hlines(avg_kwh_kg_n_day, linewidth=3, xmin=dates[0], xmax=dates[-1], label="평균", color="orange")
+    plt.hlines(avg_kwh_total_kg_n_day, linewidth=3, xmin=dates[0], xmax=dates[-1], label="토탈 센서 평균", color="yellow")
     plt.hlines(goal_mean, linewidth=3, xmin=dates[0], xmax=dates[-1], label="목표", color="red")
     plt.xticks(fontsize=16, rotation=45, ha="right")
     plt.yticks(fontsize=16)
