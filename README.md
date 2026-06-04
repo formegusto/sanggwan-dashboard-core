@@ -22,3 +22,6 @@
 
   작업날짜 => 2026-06-03
   ```
+
+- python ./src/device_hourly_ac.py --start "2026-05-22" --end "2026-06-03"
+- python ./src/device_daily_ac.py --start "2026-05-22" --end "2026-06-03"
