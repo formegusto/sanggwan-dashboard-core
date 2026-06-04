@@ -135,12 +135,38 @@ if __name__ == "__main__":
     
 
     # total_dev
-    total_dev_info = None
+    total_dev_info = db["Device"].find_one({
+        "model": sub_devs[0]["model"],
+        "devid": sub_devs[0]["devid"]
+    })
+    total_df = pd.DataFrame()
+    for target_date in dates:
+        result = ddac_col.find_one({
+            "$and": [
+                {
+                    "devDocument": total_dev_info["_id"]
+                },
+                {
+                    "createdAt": target_date - dt.timedelta(hours=9)
+                }
+            ]
+        })
+        if result is not None:
+            total_df = pd.concat([total_df, pd.DataFrame([
+                {
+                    "devid": result["devid"],
+                    "date": target_date.strftime("%Y-%m-%d"),
+                    "model": result["model"],
+                    "devname": total_dev_info["devname"],
+                    "kwh": round(result["kwh"], 2)
+                }
+            ])])
     
     evals = []
     for target_date in dates:
         date_str = target_date.strftime("%Y-%m-%d")
         kwh = round(df[df["date"] == date_str]["kwh"].values.sum(), 2)
+        kwh_total = round(total_df[total_df["date"] == date_str]["kwh"].values.sum(), 2)
         df = pd.concat([df, pd.DataFrame([
                 {
                     "devid": "total",
@@ -148,10 +174,11 @@ if __name__ == "__main__":
                     "model": "-",
                     "devname": "-",
                     "kwh": round(kwh, 2),
-                    "kwh_total": 0,
+                    "kwh_total": kwh_total,
                 }
             ])])
         kwh_kg = round(kwh / kg_day, 2)
+        kwh_total_kg = round(kwh_total / kg_day, 2)
         evals.append(kwh_kg)
         df = pd.concat([df, pd.DataFrame([
                 {
@@ -160,6 +187,7 @@ if __name__ == "__main__":
                     "model": "-",
                     "devname": "-",
                     "kwh": kwh_kg,
+                    "kwh_total": kwh_total_kg,
                 }
             ])])
         
