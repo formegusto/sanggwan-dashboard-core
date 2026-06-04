@@ -31,9 +31,10 @@ if __name__ == "__main__":
     dev = args.dev
     if not (dev == "Mpm310" or dev == "Mpm330"):
         exit(0)
+    dev_table = "mpm310_sang" if dev == "Mpm310" else "mpm330_sang"
 
     remote_conn = get_remote()
-    sql = f'SELECT * FROM {dev} WHERE farmid = "0003" AND rcvtime >= "{start_rcvtime}" AND rcvtime < "{end_rcvtime}" ORDER BY rcvtime ASC;'
+    sql = f'SELECT * FROM {dev_table} WHERE farmid = "0005" AND rcvtime >= "{start_rcvtime}" AND rcvtime < "{end_rcvtime}" ORDER BY rcvtime ASC;'
     print(sql)
     with remote_conn.cursor() as cursor:
         cursor.execute(sql)

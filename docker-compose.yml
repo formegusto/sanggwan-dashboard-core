@@ -3,7 +3,7 @@ services:
   db:
     image: mongo
     restart: always
-    container_name: sangkwan-dashboard-mongo
+    container_name: sanggwan-dashboard-mongo
     env_file: .env.mongo
     ports:
       - "27003:27017"
