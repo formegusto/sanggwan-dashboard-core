@@ -61,7 +61,7 @@ sub_devs = [
 all_devs = main_devs
 
 if __name__ == "__main__":
-    start = dt.datetime.strptime("2026-05-29", "%Y-%m-%d")
+    start = dt.datetime.strptime("2026-05-30", "%Y-%m-%d")
     end = dt.datetime.strptime(dt.datetime.now().strftime("%Y-%m-%d"), "%Y-%m-%d")
     
     dates = []
