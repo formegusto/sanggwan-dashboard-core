@@ -6,4 +6,4 @@ datas
 .ipynb_checkpoints
 report_plc
 model
-docker*
+docker-compose.yml
