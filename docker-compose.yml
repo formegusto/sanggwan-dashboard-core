@@ -6,6 +6,6 @@ services:
     container_name: sanggwan-dashboard-mongo
     env_file: .env.mongo
     ports:
-      - "27703:27017"
+      - "27003:27017"
     volumes:
       - "./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh"
