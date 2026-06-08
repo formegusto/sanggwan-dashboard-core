@@ -98,12 +98,13 @@ def report_get(start, end):
                 }
             ]
         })
-        acs = np.full(24, 0)
+        acs = np.full(24, .0)
         for r in results:
             h = dt.datetime.strptime(r["rcvtime"], "%Y%m%d%H%M%S").hour
             acs[h] = round(r["kwh"], 2)
         daily_total_acs.append(acs)
     daily_total_acs = np.array(daily_total_acs)
+    print(daily_total_acs)
         
 
     df1 = pd.DataFrame(daily_acs)
