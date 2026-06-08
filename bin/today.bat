@@ -1,3 +1,5 @@
+@echo off
+
 python ./src/remote_to_local.py --dev "Mpm310"
 python ./src/remote_to_local.py --dev "Mpm330"
 
